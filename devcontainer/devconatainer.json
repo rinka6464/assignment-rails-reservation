@@ -1,5 +1,5 @@
 {
-  "name": "Rails Schedule App",
+  "name": "Rails Reservation App",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
@@ -28,5 +28,5 @@
       "editor.formatOnSave": true
     }
   },
-  "postCreateCommand": "docker compose up -d && gem install rails -v 7.2.2.1 && bundle install && rails db:create db:migrate"
+  "postCreateCommand": "docker compose up -d && gem install rails -v 7.2.2.1 && bundle install"
 }
