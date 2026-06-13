@@ -1,14 +1,32 @@
 {
   "name": "Rails Schedule App",
-  "image": "mcr.microsoft.com/devcontainers/ruby:3.2",
-  "postCreateCommand": "gem install rails -v 7.2.2.1 && bundle install && sudo service postgresql start && rails db:create db:migrate",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
   "forwardPorts": [3000],
   "remoteEnv": {
     "GEM_HOME": "/home/vscode/.gem/ruby/3.2.2",
     "GEM_PATH": "/home/vscode/.gem/ruby/3.2.2",
-    "PATH": "/home/vscode/.gem/ruby/3.2.2/bin:${containerEnv:PATH}"
+    "PATH": "/home/vscode/.gem/ruby/3.2.2/bin:${containerEnv:PATH}",
+    "DATABASE_HOST": "localhost",
+    "DATABASE_PORT": "5432",
+    "DATABASE_USER": "postgres",
+    "DATABASE_PASSWORD": "postgres"
   },
-  "features": {
-    "ghcr.io/devcontainers/features/git:1": {}
-  }
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "[ruby]": {
+      "editor.formatOnSave": true
+    }
+  },
+  "postCreateCommand": "docker compose up -d && gem install rails -v 7.2.2.1 && bundle install && rails db:create db:migrate"
 }
